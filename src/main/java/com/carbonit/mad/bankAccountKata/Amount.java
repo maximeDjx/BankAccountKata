@@ -5,10 +5,8 @@ import java.util.Objects;
 
 public class Amount {
 
-    private static final String ILLEGAL_ARGUMENT_EXCEPTION_MESSAGE = "Un Amount doit avoir une valeur positive.";
-
     public final static Amount ZERO = new Amount(BigDecimal.ZERO);
-
+    private static final String ILLEGAL_ARGUMENT_EXCEPTION_MESSAGE = "Un Amount doit avoir une valeur positive.";
     private final BigDecimal value;
 
     private Amount(BigDecimal value) {
@@ -31,13 +29,15 @@ public class Amount {
         return Amount.of(this.value.subtract(amount.value));
     }
 
-    public BigDecimal asBigDecimal(){
+    public BigDecimal asBigDecimal() {
         return this.value;
     }
 
     @Override
     public boolean equals(Object obj) {
-        final var other = (Amount)obj;
+        if (!(obj instanceof Amount)) return false;
+        if (obj == this) return true;
+        final var other = (Amount) obj;
 
         return this.value.equals(other.value);
     }
